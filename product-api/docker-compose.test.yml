@@ -1,30 +1,17 @@
+version: '3'
 services:
   db:
-    ports:
-      - "3306:3306"
     image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: productdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
     volumes:
       - db_data:/var/lib/mysql
     restart: always
   api:
     build: .
     ports:
-      - "3000:3000"
+      - "3001:3001" # Run tests on a different port
     depends_on:
       - db
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - api
+    command: npm test # Run tests instead of starting the server
   db-init:
     build: ./db-init
     depends_on:

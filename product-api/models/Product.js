@@ -19,6 +19,10 @@ const Product = sequelize.define('Product', {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
+  },
+  is_deleted: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 }, {
   tableName: 'products',

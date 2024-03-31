@@ -16,15 +16,21 @@ do
   sleep 1
 done
 
-echo "MySQL server is ready. Initializing database..."
+#echo "Droppig table "
 
+#mysql -h $host -P $port -u $user -p$password $database <<EOF
+#DROP TABLE IF EXISTS products;
+#EOF
+
+echo "MySQL server is ready. Initializing database..."
 mysql -h $host -P $port -u $user -p$password $database <<EOF
 CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     description TEXT,
-    viewCount INT DEFAULT 0
+    viewCount INT DEFAULT 0,
+    is_deleted BOOLEAN DEFAULT false
 );
 EOF
 
